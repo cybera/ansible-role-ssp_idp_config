@@ -1,0 +1,44 @@
+<?php
+
+$config = array(
+        'sets' => array(
+                'openconext' => array(
+                        'cron'          => array('hourly'),
+                        'sources'       => array(
+                                array(
+                                        'src' => '{{ ssp_idp_openconext_sp_meta_url }}',
+                                        'template' => array(
+                                                'tags'  => array('openconext'),
+                                                ),
+                        'authproc' => array(
+                            /* add schacHomeOrganization attribute */
+                            10 => array(
+                              'class' => 'core:AttributeAdd',
+                              'schacHomeOrganization' => 'myunified.ca',
+                            ),
+                            /* add the 'urn' prefix to all supported attributes (if available from authentication source) */
+                            90 => array(
+                              'class' => 'core:AttributeMap',
+                              'uid'                    => 'urn:mace:dir:attribute-def:uid',
+                              'sn'                     => 'urn:mace:dir:attribute-def:sn',
+                              'givenName'              => 'urn:mace:dir:attribute-def:givenName',
+                              'cn'                     => 'urn:mace:dir:attribute-def:cn',
+                              'displayName'            => 'urn:mace:dir:attribute-def:displayName',
+                              'mail'                   => 'urn:mace:dir:attribute-def:mail',
+                              'eduPersonPrincipalName' => 'urn:mace:dir:attribute-def:eduPersonPrincipalName',
+                              'eduPersonEntitlement'   => 'urn:mace:dir:attribute-def:eduPersonEntitlement',
+                              'eduPersonAffiliation'   => 'urn:mace:dir:attribute-def:eduPersonAffiliation',
+                              'schacHomeOrganization'  => 'urn:mace:terena.org:attribute-def:schacHomeOrganization',
+                            ),
+                          ),
+                                ),
+                        ),
+                        'expireAfter'           => 60*60*24*4, // Maximum 4 days cache time
+                        'outputDir'     => 'metadata/metarefresh-openconext/',
+
+                        'outputFormat' => 'flatfile',
+
+                        //'types' => array(),
+                ),
+        ),
+);

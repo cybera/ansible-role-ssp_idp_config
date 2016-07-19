@@ -1,0 +1,55 @@
+<?php
+{% for item in ssp_idp_configs %}
+$metadata['__DYNAMIC:{{ loop.index }}__'] = array(
+    'host' => '{{ item.domain }}',
+    'auth' => '{{ item.auth_name }}',
+    'privatekey' => '{{ item.domain }}.pem',
+    'certificate' => '{{ item.domain }}.crt',
+
+    'UIInfo' => array(
+     'DisplayName' => array(
+         'en' => '{{ item.display_name }}',
+      ),
+         'Description' => array(
+            'en' => '{{ item.description }}',
+         ),
+         'Keywords' => array(
+          'en' => array('idp'),
+         ),
+         'Logo' => array(
+              array(
+              'url'    => '{{ item.logo_url }}',
+              'height' => {{ item.logo_height }},
+              'width'  => {{ item.logo_width }},
+               ),
+         ),                                                                                                                                     ),
+    'attributes.NameFormat' => 'urn:oasis:names:tc:SAML:2.0:attrname-format:uri',
+    'userid.attribute' => 'userPrincipalName',
+
+    'authproc' => array(
+         10 => array(
+        'class' => 'core:AttributeAdd',
+             'mail' => array('user@dev.myunified.ca'),
+             'schacHomeOrganization' => '{{ item.domain }}',
+         ),
+        20 => 'core:TargetedID',
+        30 => array(
+            'class' => 'core:AttributeMap',
+            'eduPersonTargetedID' => 'uid',
+            '%duplicate',
+        ),
+        40 => array('class' => 'core:AttributeMap',
+        'name2urn', 'name2oid',
+        '%duplicate',
+        ),
+        50 => array(
+            'class' => 'core:AttributeLimit',
+             'urn:mace:dir:attribute-def:displayName',
+             'urn:mace:dir:attribute-def:uid',
+             'urn:mace:dir:attribute-def:mail',
+             'urn:mace:terena.org:attribute-def:schacHomeOrganization',
+        ),
+     ),
+
+);
+{% endfor %}
