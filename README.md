@@ -25,6 +25,7 @@ ssp_idp_openconext_sp_assert_url: https://openconext.example.com/authentication/
 # Prompt for attribute release consent
 ssp_idp_attr_consent: true
 
+# Sources to use for IdP configurations below
 ssp_idp_authsources:
   - auth_name: example-ad
     hostname: ad.example.com
@@ -45,6 +46,7 @@ ssp_idp_authsources:
     password: ThisIsNotAStrongPassword
     filter: '(&(objectCategory=Person)(ObjectClass=User))'
 
+# IdP configurations. Limited to single auth source for now.
 ssp_idp_configs:
   - domain: ssp.example.com
     ssl_subj: '/CN=ssp.example.com/O=Organization Name/C=CA'
