@@ -34,7 +34,7 @@ ssp_idp_authsources:
     search_base:
       - 'CN=Users,DC=example,DC=com'
       - 'CN=ServiceAccounts,DC=example,DC=com'
-    username: CN=User1,DC=example,DC=com
+    username: user@ad.example.com
     password: ThisIsNotAStrongPassword
     filter: '(&(objectCategory=Person)(ObjectClass=User))'
 
