@@ -45,7 +45,6 @@
   become: yes
   with_items:
     - saml20-idp-hosted.php
-    - saml20-sp-remote.php
   tags: config
 
 - name: Populate sp metadata file
