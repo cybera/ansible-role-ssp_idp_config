@@ -37,7 +37,7 @@
   become: yes
   tags: config
 
-- name: Populate metadata files
+- name: Populate idp metadata file
   template:
     src="{{ item }}.j2"
     dest="{{ ssp_dir }}/metadata/{{ item }}"
@@ -45,6 +45,17 @@
   become: yes
   with_items:
     - saml20-idp-hosted.php
+    - saml20-sp-remote.php
+  tags: config
+
+- name: Populate sp metadata file
+  template:
+    src="{{ item }}.j2"
+    dest="{{ ssp_dir }}/metadata/{{ item }}"
+  become_user: "{{ ssp_www_user }}"
+  become: yes
+  when: not ssp_cron_enable
+  with_items:
     - saml20-sp-remote.php
   tags: config
 
