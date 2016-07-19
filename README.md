@@ -103,3 +103,4 @@ GPLv2
 Author Information
 ------------------
 
+Andrew Klaus (Cybera)
