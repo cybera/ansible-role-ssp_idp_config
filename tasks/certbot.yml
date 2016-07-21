@@ -16,10 +16,11 @@
           --email {{ ssp_idp_technical_email }} \
           --keep-until-expiring \
           --quiet \
+          --expand \
           -n \
-          -d {{ ssp_domain }} \
+          -d {{ ssp_domain }} {% for i in ssp_idp_configs %} -d {{ i.domain }} {% endfor %} \
           --pre-hook "service apache2 stop" --post-hook "service apache2 start" \
-          --webroot-path={{ ssp_dir }}   creates=/etc/letsencrypt/live/{{ ssp_domain }}/cert.pem
+          --webroot-path={{ ssp_dir }}
 
 - name: Setup certbot crontab if needed
   cron: name="Autorenew certbot"
